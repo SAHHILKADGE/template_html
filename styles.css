@@ -1,0 +1,47 @@
+.voice-input {
+    border: none;
+    border-bottom: 1px solid #000;
+    margin-left: 20px;
+    padding: 0;
+    
+    
+  }
+  
+  .voice-input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+.input-field{
+    padding: 1rem;
+}
+
+/* Define the table style */
+.tableStyle {
+    display: flex;
+    border: 1px solid #000;
+  }
+  
+  /* Define the column style */
+  .columnStyle {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #000;
+  }
+  
+  /* Normal state */
+.button {
+    background-color: lightgreen;
+    color: white;
+    border: none;
+    border-radius: 10px; /* Adjust the radius to control the amount of curvature */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  /* Hover state */
+  .button:hover {
+    background-color: darkgreen;
+  }
+  

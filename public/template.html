@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Voice Control</title>
+</head>
+<body>
+    <div>
+      <h1>MRI BRAIN WITHOUT CONTRAST, MRA HEAD, MRA NECKs</h1>
+    
+    <form id="voiceFormHead">
+      <button class="button" type="button" onclick="startVoiceRecognition()">Start Voice Recognition</button>
+        <button class="button" type="button" onclick="stopVoiceRecognition()">Stop Voice Recognition</button>
+        <div class="tableStyle">
+          <div class="columnStyle">
+            <div class="input-field">
+              <label for="input1">Patient Name</label>
+              <input class="voice-input" type="text" id="input1"  autofocus />
+            </div>
+            <div class="input-field">
+              <label for="input3">Sex</label>
+              <input class="voice-input" type="text" id="input2"   />
+            </div>
+            <div class="input-field">
+              <label for="input5">Study</label>
+              <input class="voice-input" type="text" id="input3"   />
+            </div>
+            <div class="input-field">
+              <label for="input7">Study date:</label>
+              <input class="voice-input" type="text" id="input4"  />
+            </div>
+          </div>
+          
+          <div class="columnStyle">
+            <div class="input-field">
+              <label for="input2">Patient ID:</label>
+              <input class="voice-input" type="text" id="input1"  autofocus />
+            </div>
+            <div class="input-field">
+              <label for="input4">Patient Age:</label>
+              <input class="voice-input" type="text" id="input2"   />
+            </div>
+            <div class="input-field">
+              <label for="input6">Accession Number:</label>
+              <input class="voice-input" type="text" id="input3"   />
+            </div>
+            <div class="input-field">
+              <label for="input8">Referring Physician:</label>
+              <input class="voice-input" type="text" id="input4"  />
+            </div>
+          </div>
+        </div>
+
+        <h3>Technique:</h3>
+        <h4>MR images of the brain were acquired without intravenous contrast.</h4>
+        <div class="input-field">
+          <label for="input9">COMPARISON:</label>
+          <input class="voice-input" type="text" id="input1"  autofocus />
+        </div>
+        <h3>Finding:</h3>
+        <div class="input-field">
+          <label for="input10">Patient Name</label>
+          <input class="voice-input" type="text" id="input2"   />
+        </div>
+        <div class="input-field">
+          <label for="input11">BRAIN PARENCHYMA: </label>
+          <input class="voice-input" type="text" id="input3"   />
+        </div>
+        <div class="input-field">
+          <input class="voice-input" type="text" id="input4"  />
+        </div>
+
+        div class="input-field">
+          <label for="input13">COMPARISON:</label>
+          <input class="voice-input" type="text" id="input1"  autofocus />
+        </div>
+        <h3>Finding:</h3>
+        <div class="input-field">
+          <label for="input14">VENTRICLES/EXTRA-AXIAL SPACES:</label>
+          <input class="voice-input" type="text" id="input2"   />
+        </div>
+        <div class="input-field">
+          <label for="input15">FLOW VOIDS:</label>
+          <input class="voice-input" type="text" id="input3"   />
+        </div>
+        
+
+        <div class="input-field">
+          <label for="input16">EXTRACRANIAL STRUCTURES:</label>
+          <input class="voice-input" type="text" id="input3"   />
+        </div>
+        
+
+        <label for="input31">Precautions to be taken</label>
+        <input type="text" id="input31" class="voice-input" />
+
+        <!-- Add more input fields as needed -->
+
+        
+    </form>
+    </div>
+
+    <script>
+        let recognition;
+
+        function startVoiceRecognition() {
+            // Check if the browser supports the Web Speech API
+            if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+                // Create a SpeechRecognition object
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+                // Set the language for recognition
+                recognition.lang = 'en-US';
+
+                // Set continuous mode
+                recognition.continuous = true;
+
+                // Add a callback for the result event
+                recognition.onresult = function (event) {
+                    const result = event.results[event.results.length - 1][0].transcript.trim();
+                    handleVoiceInput(result);
+                };
+
+                // Start recognition
+                recognition.start();
+
+                // Focus on the first input field
+                document.getElementById('input1').focus();
+            } else {
+                alert('Your browser does not support the Web Speech API. Please use a supported browser.');
+            }
+        }
+
+        function stopVoiceRecognition() {
+            if (recognition) {
+                // Stop recognition
+                recognition.stop();
+            }
+        }
+
+        function handleVoiceInput(input) {
+            // Get the active input field
+            const activeInput = document.activeElement;
+
+            // If the input is "enter", move focus to the next input field
+            if (input.toLowerCase() === 'enter') {
+                const inputs = document.getElementsByClassName('voice-input');
+                const currentIndex = Array.from(inputs).indexOf(activeInput);
+                const nextIndex = (currentIndex + 1) % inputs.length;
+                inputs[nextIndex].focus();
+            } else {
+                // Fill the value into the active input field
+                activeInput.value = input;
+            }
+        }
+    </script>
+</body>
+</html>
